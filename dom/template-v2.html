@@ -1,0 +1,24 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <input type="text" v-on:input="changeTitle">
+    <p>{{ title }}</p>
+    <p>{{ hello() }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Test VUEJS!'
+        },
+        methods: {
+            changeTitle(event) {
+                this.title = event.target.value
+            },
+            hello: function () {
+                return 'Hello'
+            }
+        }
+    })
+</script>

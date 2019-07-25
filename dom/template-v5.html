@@ -1,0 +1,30 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <input type="text" v-on:input="changeTitle">
+    <!-- v-once will not change the value -->
+    <p v-once>{{ title }}</p>
+    <p>{{ titleChange }}</p>
+    <p>{{ hello() }}</p>
+    <a v-bind:href="link">Google</a>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Test VUEJS!',
+            titleChange: 'Test VUEJS change!',
+            link: 'http://google.com'
+        },
+        methods: {
+            changeTitle(event) {
+                this.titleChange = event.target.value
+            },
+            hello: function () {
+                this.title = "Good morning!"
+                return this.title
+            }
+        }
+    })
+</script>

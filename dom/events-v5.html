@@ -1,0 +1,52 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <p> {{ counter }} </p>
+    <button v-on:click="sum(5, $event)">Sum 1</button>
+    <p v-on:mousemove="updateXY">
+        Mouse: {{ x }} and {{ y }}
+        <!-- <span v-on:mousemove="stop">STOP HERE!!!!!</span> -->
+        <span v-on:mousemove.stop>STOP HERE!!!!!</span>
+        <!-- <span v-on:mousemove.stop.prevent="">STOP HERE!!!!!</span> -->
+    </p>
+    <!-- <a v-on:click.prevent="" href="http://google.com">Google</a> -->
+    <a v-on:click="dontRedirect" href="http://google.com">Google</a>
+    <hr>
+    <!-- <input type="text" v-on:keyup="showAlert"> -->
+    <!-- <input type="text" v-on:keyup.enter="showAlert"> -->
+    <input type="text" v-on:keyup.enter.alt="showAlert">
+
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            sum(val, ev) {
+                console.log(val, ev)
+                this.counter += val
+            },
+            updateXY(event) {
+                console.log(event)
+                this.x = event.clientX
+                this.y = event.clientY
+            },
+            // stop(e) {
+            //     e.stopPropagation();
+            // }
+            dontRedirect(event) {
+                console.log("don't redirect");
+               event.preventDefault();
+            },
+            showAlert() {
+                alert('Im alerting you!')
+            }
+        }
+    })
+</script>

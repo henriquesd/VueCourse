@@ -1,0 +1,26 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="challenge">
+    <!-- 1) Fill in the <p> tag below with your Name and Age - using interpolation -->
+    <p>Using VueJS - {{name}} ({{yearsOld}})</p>
+    
+    <!-- 2) Show your age multiplied by 3 -->
+    <p>{{ yearsOld * 3 }} </p>
+    <p>{{ yearsOldMultipliedByThree() }} </p>
+    
+    <!-- 3) Call a function to display a random number between 0 and 1 (Math.random ()) -->
+    <p>{{ Math.random() }}</p>
+    <p>{{ random() }}</p>
+    
+    <!-- 4) Search for an image on google and display it in the img tag by binding the attribute "src" -->
+    <div>
+        <img v-bind:src="image" height="200">
+    </div>
+    
+    <!-- 5) Initialize the input with your name (use the "value" attribute) -->
+    <div>
+        <input type="text" v-bind:value="name">
+    </div>
+</div>
+
+<script src="app.js"></script>
