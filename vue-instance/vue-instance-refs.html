@@ -1,0 +1,30 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    <h1 ref="classRef">{{ classInfo }}</h1>
+    <h2>{{ module }}</h2>
+    <button @click="changeClassInfo">Change Class</button>
+    <button @click="changeModule">Change Module</button>
+</div>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            classInfo: 'Class: Using Refs',
+            module: 'Module: Vue Instance'
+        },
+        methods: {
+            changeClassInfo() {
+                this.classInfo += '#'
+            },
+            changeModule() {
+                this.module += '#'
+                console.log(this.$ref.classRef.innerText)
+            }
+        }
+    })
+
+    vm.$refs.classRef.innerText = 'Changed directly :('
+</script>

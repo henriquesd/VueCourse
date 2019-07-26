@@ -1,0 +1,21 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    {{ title }}
+    <button @click="change">Change</button>
+</div>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            title: 'Test 1'
+        },
+        methods: {
+            change() {
+                this.title += '!'
+            }
+        }
+    })
+</script>
