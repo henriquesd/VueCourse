@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    <!-- <comp></comp> -->
+    <!-- <div class="comp"></div> -->
+    <comp></comp>
+    <comp></comp>
+    <comp></comp>
+</div>
+
+<script>
+    Vue.component('comp', {
+        template: `
+            <div>
+                <h1>{{ classInfo }}</h1>
+                <h2>{{ module }}</h2>
+                <button @click="changeClassInfo">Change Class</button>
+                <button @click="changeModule">Change Module</button>
+            </div>
+        `,
+        data: function() {
+            return {
+                classInfo: 'Class: Assembling Vue Instance',
+                module: 'Module: Vue Instance'
+            }
+        },
+        methods: {
+            changeClassInfo() {
+                this.classInfo += '#'
+            },
+            changeModule() {
+                this.module += '#'
+            }
+        }
+    })
+
+    const vm = new Vue({
+        el: '#app',
+        //el: 'comp',
+        // el: '.comp',
+    })
+
+</script>
