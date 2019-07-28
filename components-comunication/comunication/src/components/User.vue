@@ -2,10 +2,14 @@
     <div class="container">
         <h1>User Component</h1>
         <p>This is a very nice component!</p>
+        <p>Name is <strong>{{ name }}</strong></p>
         <button @click="changeName">Change Name</button>
         <hr>
         <div class="components">
-            <app-user-info :name="name"/>
+            <app-user-info
+                :name="name"
+                @nameChanged="name = $event"
+                :resetFn="resetName"/>
             <app-user-edit />
         </div>
     </div>
@@ -25,6 +29,9 @@ export default {
     methods: {
         changeName() {
             this.name = 'Ana'
+        },
+        resetName() {
+            this.name = 'Henrique'
         }
     }
 }
