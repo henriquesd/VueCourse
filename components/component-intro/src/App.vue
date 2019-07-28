@@ -3,6 +3,7 @@
     <h1>Counters</h1>
     <!-- {{ counter }} -->
     <app-counters />
+    <button>?</button>
   </div>
 </template>
 

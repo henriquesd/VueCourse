@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .counter span {
         border-bottom: 1px solid #CCC;
         height: 30px;
