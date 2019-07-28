@@ -8,7 +8,18 @@
 
 <script>
 export default {
-    props: ['name'],
+    props: {
+        // name: [String, Array]
+        // name: String
+        name: {
+            type: String,
+            // required: true
+            // default: function() {
+            //     return Array(10).fill(0).join(',')
+            // }
+            default: "Anonymous"
+        }
+    },
     methods: {
         invertName() {
             return this.name.split('').reverse().join('')
