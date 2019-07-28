@@ -2,9 +2,7 @@
   <div id="app">
     <h1>Counters</h1>
     <!-- {{ counter }} -->
-    <app-counter/>
-    <app-counter/>
-    <app-counter/>
+    <app-counters />
   </div>
 </template>
 
