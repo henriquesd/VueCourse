@@ -3,12 +3,15 @@
         <h2>User info</h2>
         <p>Details...</p>
         <p>User Name: <strong>{{ invertName() }}</strong></p>
+        <p>User age: <strong>{{ age }}</strong></p>
         <button @click="resetName">Reset Name</button>
         <button @click="resetFn()">Reset Name (Callback)</button>
     </div>
 </template>
 
 <script>
+import barramento from '@/barramento'
+
 export default {
     props: {
         // name: [String, Array]
@@ -21,7 +24,8 @@ export default {
             // }
             default: "Anonymous"
         },
-        resetFn: Function
+        resetFn: Function,
+        age: Number
     },
     methods: {
         invertName() {
@@ -35,6 +39,14 @@ export default {
             //     old: 
             // })
         }
+    },
+    created() {
+        // barramento.$on('ageChanged', age => {
+        //     this.age = age
+        // })
+        barramento.whenAgeChange(age => {
+            this.age = age
+        })
     }
 }
 </script>
