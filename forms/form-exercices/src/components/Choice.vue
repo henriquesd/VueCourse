@@ -1,7 +1,7 @@
 <template>
     <div class="choice"
-        @click="on = !on"
-        :class="{on, off: !on}">
+        @click="$emit('input', !value)"
+        :class="{on: value, off: !value}">
         <div v-if="on" class="button"></div>
         <div v-else class="button"></div>
     </div>
@@ -9,9 +9,10 @@
 
 <script>
 export default {
-    data() {
-        return {
-            on: false
+    props: {
+        value: {
+            type: Boolean,
+            required: true
         }
     }
 }

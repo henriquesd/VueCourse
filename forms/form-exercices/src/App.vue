@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Register Complaint</h1>
 		<div class="content">
-			<form class="panel">
+			<div class="panel" v-if="!sended">
 				<div class="header">Form</div>
 				<Label name="Email">
 					<input type="text" v-model.lazy.trim="user.email">
@@ -17,26 +17,34 @@
 					<textarea name="" cols="30" rows="5" v-model="message"></textarea>
 				</Label>
 				<Label name="Problem Characteristics">
-					<span class="mr-4"><input type="checkbox" value="reproducible"> Reproducible</span>
-					<span><input type="checkbox" value="intermittent"> intermittent</span>
+					<span class="mr-4"><input type="checkbox" v-model="characteristics"
+						value="reproducible"> Reproducible</span>
+					<span><input type="checkbox" v-model="characteristics"
+						value="intermittent"> intermittent</span>
 				</Label>
 				<Label name="Which product?">
-					<span class="mr-4"><input type="radio"> Web</span>
-					<span class="mr-4"><input type="radio"> Mobile</span>
-					<span><input type="radio"> Other</span>
+					<span class="mr-4"><input type="radio" value="web" v-model="product"> Web</span>
+					<span class="mr-4"><input type="radio" value="mobile" v-model="product"> Mobile</span>
+					<span><input type="radio" value="other" v-model="product"> Other</span>
 				</Label>
 				<Label name="Priority">
-					<select name="" id="">
-						<option></option>
+					<select v-model="priority">
+						<option v-for="priority in priorities"
+							:value="priority.code"
+							:key="priority.code"
+							:selected="priority.code === 3">
+							{{ priority.code }} - {{ priority.name }} </option>
 					</select>
 				</Label>
 				<Label name="First Complaint?">
-					<Choice />
+					<!-- <input type="text" :value="temp"
+						@input="temp = $event.target.value"> -->
+					<Choice v-model="choice"/>
 				</Label>
 				<hr>
-				<button>Send</button>
-			</form>
-			<div class="panel">
+				<button @click.prevent="send">Send</button>
+			</div>
+			<div class="panel" v-else>
 				<div class="header">Result</div>
 				<Label name="Email">
 					<span>{{ user.email }}</span>
@@ -50,18 +58,25 @@
 				<Label name="Message">
 					<span style="white-space: pre;">{{ message }}</span>
 				</Label>
-				<Label name="Check Options">
-					<span>???</span>
+				<Label name="Problem Characteristics">
+					<span>
+						<ul>
+							<li v-for="c in characteristics" :key="c">{{ c }}</li>
+						</ul>
+					</span>
 				</Label>
 				<Label name="Which product?">
-					<span>???</span>
+					<span>{{ product }}</span>
 				</Label>
 				<Label name="Priority">
-					<span>???</span>
+					<span> {{ priority }} {{ priorityType }}</span>
 				</Label>
 				<Label name="First Complaint?">
-					<span>???</span>
+					<span>{{ choice }}</span>
 				</Label>
+				<!-- <Label name="Temp">
+					<span> {{ temp }}</span>
+				</Label> -->
 			</div>
 		</div>
 	</div>
@@ -77,16 +92,35 @@ export default {
 	computed: {
 		ageType() {
 			return typeof this.user.age
+		},
+		priorityType() {
+			return typeof this.priority
+		}
+	},
+	methods: {
+		send() {
+			this.sended = true
 		}
 	},
 	data() {
 		return {
 			message: '',
+			characteristics: [],
+			product: 'web',
+			priority: 1,
+			priorities: [
+				{ code: 1, name: 'Low' },
+				{ code: 2, name: 'Moderate' },
+				{ code: 3, name: 'High' },
+			],
 			user: {
 				email: '',
 				password: '',
 				age: 25
-			}
+			},
+			// temp: 'test'
+			choice: true,
+			sended: false
 		}
 	},
 	// created() {
@@ -135,7 +169,7 @@ body {
 	font-size: 1.4rem;
 }
 
-#app form button {
+.panel button {
 	float: right;
 	margin: 10px 0px;
 	padding: 10px 20px;
