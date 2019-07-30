@@ -1,7 +1,16 @@
 <template>
 	<div id="app">
-		<Quotes />
-		<About />
+		<!-- <Quotes />
+		<About /> -->
+		<span>
+			<button @click="component = 'Quotes'">Quotes</button>
+			<button @click="component = 'About'">About</button>
+		</span>
+		<keep-alive>
+			<component :is="component"/>
+		</keep-alive>
+		<!-- <component :is="'About'"/> -->
+		<!-- <component is="About"/> -->
 	</div>
 </template>
 
@@ -10,7 +19,12 @@ import Quotes from './components/Quotes'
 import About from './components/About'
 
 export default {
-	components: { Quotes, About }
+	components: { Quotes, About },
+	data() {
+		return {
+			component: 'Quotes'
+		}
+	}
 }
 </script>
 
