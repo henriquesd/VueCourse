@@ -19,7 +19,7 @@
 			<b-alert variant="info" show v-show="show">{{ msg }}</b-alert>
 		</transition> -->
 
-		<hr>
+		<!-- <hr>
 		<b-select v-model="animationType" class="mb-4">
 			<option value="fade">Fade</option>
 			<option value="slide">Slide</option>
@@ -56,7 +56,17 @@
 		</div>
 		<transition name="fade" mode="out-in">
 			<component :is="selectedComponent"></component>
-		</transition>
+		</transition> -->
+
+		<hr>
+		<b-button @click="addStudent" class="mb-4">Add Student</b-button>
+
+		<transition-group name="slide" tag="div">
+			<b-list-group v-for="(student, i) in students" :key="student">
+				<b-list-group-item @click="removeStudent(i)">{{ student }}</b-list-group-item>
+			</b-list-group>
+		</transition-group>
+	
 
 	</div>
 </template>
@@ -69,6 +79,7 @@ export default {
 	components: { AlertWarning, AlertInfo },
 	data() {
 		return {
+			students: ['Ana', 'Robert', 'John', 'Mark'],
 			msg: 'An information message to the user!',
 			show: false,
 			show2: true,
@@ -78,6 +89,13 @@ export default {
 		}
 	},
 	methods: {
+		addStudent() {
+			const s = Math.random().toString(36).substring(2)
+			this.students.push(s)
+		},
+		removeStudent(index) {
+			this.students.splice(index, 1)
+		},
 		animate(el, done, negative) {
 			let round = 1
 			const timer = setInterval(() => {
@@ -176,12 +194,18 @@ export default {
 }
 
 .slide-leave-active {
+	position: absolute;
+	width: 100%;
 	animation: slide-out 2s ease;
 	transition: opacity 2s;
 }
 
 .slide-enter, .slide-leave-to {
 	opacity: 0;
+}
+
+.slide-move {
+	transition: transform 1s;
 }
 
 </style>
