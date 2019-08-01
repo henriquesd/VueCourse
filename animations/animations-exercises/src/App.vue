@@ -29,18 +29,98 @@
 			<b-alert variant="info" show v-if="show" key="info">{{ msg }}</b-alert>
 			<b-alert variant="warning" show v-else key="warn">{{ msg }}</b-alert>
 		</transition>
+		
+		<hr>
+		<button @click="show2 = !show2">Toggle</button>
+		<transition
+			:css="false"
+
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+			@enter-cancelled="enterCancelled"
+
+			@before-leave="beforeLeave"
+			@leave="leave"
+			@after-leave="afterLeave"
+			@leave-cancelled="leaveCancelled">
+			<div v-if="show2" class="box"></div>
+		</transition>
+
+		<hr>
+		<div class="mb-4">
+			<b-button variant="primary" class="mr-2"
+				@click="selectedComponent = 'AlertInfo'">Info</b-button>
+			<b-button variant="secondary"
+				@click="selectedComponent = 'AlertWarning'">Warning</b-button>
+		</div>
+		<transition name="fade" mode="out-in">
+			<component :is="selectedComponent"></component>
+		</transition>
+
 	</div>
 </template>
 
 <script>
+import AlertWarning from './AlertWarning.vue'
+import AlertInfo from './AlertInfo.vue'
 
 export default {
+	components: { AlertWarning, AlertInfo },
 	data() {
 		return {
 			msg: 'An information message to the user!',
 			show: false,
-			animationType: 'fade'
+			show2: true,
+			animationType: 'fade',
+			baseWidth: 0,
+			selectedComponent: 'AlertInfo'
 		}
+	},
+	methods: {
+		animate(el, done, negative) {
+			let round = 1
+			const timer = setInterval(() => {
+				const newWidth = this.baseWidth	+ 
+					(negative ? -round * 10 : round * 10)
+				el.style.width = `${newWidth}px`
+				round++
+				if(round > 30) {
+					clearInterval(timer)
+					done()
+				}
+			}, 20)
+		},
+		beforeEnter(el) {
+			this.baseWidth = 0
+			el.style.width = `${this.baseWidth}px`
+		},
+		// enter(el, done) {
+		// 	console.log('enter')
+		// 	done()
+		// },
+		enter(el, done) {
+			this.animate(el, done, false)
+		},
+		afterEnter(el) {
+			console.log('afterEnter')
+		},
+		enterCancelled() {
+			console.log('enterCancelled')
+		},
+		beforeLeave(el) {
+			this.baseWidth = 300
+			el.style.width = `${this.baseWidth}px`
+		},
+		leave(el, done) {
+			this.animate(el, done, true)
+		},
+		afterLeave(el) {
+			console.log('afterLeave')
+		},
+		leaveCancelled() {
+			console.log('leaveCancelled')
+		},
 	}
 }
 </script>
@@ -54,6 +134,13 @@ export default {
 	color: #2c3e50;
 	margin-top: 60px;
 	font-size: 1.5rem;
+}
+
+.box {
+	height: 100px;
+	width: 300px;
+	margin: 30px auto;
+	background-color: lightgreen;
 }
 
 .fade-enter, .fade-leave-to {
