@@ -5,7 +5,8 @@
         <!-- :to="`/user/${id}/edit`" -->
         <router-link tag="button" primary
             :to="{ name: 'editUser', params: { id },
-                query: { complete: false, language: 'en' } }">
+                query: { complete: false, language: 'en' },
+                hash: '#footer' }">
             <!-- :to="`/user/${$route.params.id}/edit`"> -->
             Edit
         </router-link>
@@ -15,7 +16,15 @@
 <script>
 export default {
     props: ['id'],
-    
+    beforeRouteEnter (to, from, next) {
+        // console.log(this.id)
+        console.log('inside component -> user detail')
+        // next(vm => {
+        //     console.log(vm.id)
+        // })
+        const authenticated = true
+        authenticated ? next() : next(false)
+    }
     // data() {
     //     return {
     //         id: this.$route.params.id
