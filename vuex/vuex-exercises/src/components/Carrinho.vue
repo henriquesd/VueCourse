@@ -30,14 +30,15 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters({
+        // 'carrinho' é o nome do namespace;
+        ...mapGetters('carrinho', {
             total: 'valorTotal'
         }),
         // total() {
         //     return this.$store.getters.valorTotal
         // },
         produtos() {
-            return this.$store.state.produtos
+            return this.$store.state.carrinho.produtos
         }
     }
 }

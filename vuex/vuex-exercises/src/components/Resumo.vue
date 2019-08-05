@@ -12,7 +12,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    computed: mapGetters({
+    // 'carinho' é o nome do namespace;
+    computed: mapGetters('carrinho', {
         total: 'valorTotal'
     })
     // computed: mapGetters(['valorTotal'])
