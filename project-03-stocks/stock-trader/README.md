@@ -1,9 +1,13 @@
 # stock-trader
 
+## Configure the Firebase url
+Inform your database (Firebase) url on 'baseURL' in axios.js file (change 'xxxxx' for your database url)
+
 
 ## Installed
 npm i --save vue-router
 npm i --save vuex
+npm i --save axios
 
 ## Project setup
 ```
