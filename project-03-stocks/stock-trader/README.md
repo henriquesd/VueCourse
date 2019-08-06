@@ -3,6 +3,7 @@
 
 ## Installed
 npm i --save vue-router
+npm i --save vuex
 
 ## Project setup
 ```
